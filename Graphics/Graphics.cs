@@ -8,6 +8,7 @@ namespace EAL.Graphics
 {
     public class Graphics
     {
+
         public enum colours
         {
             black,
@@ -24,16 +25,23 @@ namespace EAL.Graphics
             Borderless
         };
         Form f = new Form();
+        System.Drawing.Graphics g;
         string Title = "";
+        public Graphics()
+        {
+
+        }
+
         /// <summary>
         /// Set window parameters
         /// </summary>
         /// <param name="width">Width of the Window</param>
         /// <param name="height">Height of the Window</param>
         /// <param name="title">Title of the Window</param>
-        public void setWindow(int width, int height, string title, borderStyles borderStyle = borderStyles.Normal)
+        public void createWindow(int width, int height, string title, borderStyles borderStyle = borderStyles.Normal, bool fullscreen = false)
         {
             FormBorderStyle b = FormBorderStyle.FixedSingle;
+
             switch(borderStyle){
                 case borderStyles.Normal:
                     b = FormBorderStyle.FixedSingle;
@@ -51,10 +59,39 @@ namespace EAL.Graphics
             f.ControlBox = false;
             f.UseWaitCursor = false;
             f.Cursor = Cursors.Arrow;
-            f.Width = width;
-            f.Height = height;
+            if (fullscreen)
+            {
+                f.TopMost = true;
+                f.FormBorderStyle = FormBorderStyle.None;
+                f.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                f.Width = width;
+                f.Height = height;
+                f.FormBorderStyle = b;
+            }
             f.Text = title;
-            f.FormBorderStyle = b;
+            
+
+            g = f.CreateGraphics();
+
+            // Set console crap up and all that jazz...
+            Console.Title = title + " - CONSOLE";
+                       
+
+        }
+
+        public int getWidth()
+        {
+            Console.WriteLine(f.Width);
+            return f.Width;
+        }
+
+        public int getHeight()
+        {
+            Console.WriteLine(f.Height);
+            return f.Height;
         }
         /// <summary>
         /// Draws a line to the graphics window
@@ -92,7 +129,7 @@ namespace EAL.Graphics
                     p = System.Drawing.Pens.Black;
                     break;
             }
-            System.Drawing.Graphics g = f.CreateGraphics();
+           
             g.DrawLine(p, p1, p2);
         }
         public void setBackgroundColour(colours colour)
