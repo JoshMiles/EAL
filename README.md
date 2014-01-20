@@ -14,7 +14,5 @@ This isn't a public release, just a... thing.
 ===
 
 SUPPORT
-
 ===
-
 Unfortunately, as this uses WinForms; it is unable to run on Linux.

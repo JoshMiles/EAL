@@ -61,7 +61,7 @@ namespace EAL.Graphics
             f.Cursor = Cursors.Arrow;
             if (fullscreen)
             {
-                f.TopMost = true;
+                //f.TopMost = true;
                 f.FormBorderStyle = FormBorderStyle.None;
                 f.WindowState = FormWindowState.Maximized;
             }
